@@ -10,7 +10,7 @@ class Profile(models.Model):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     quiz = models.ManyToManyField(Quiz,
-                                  related_name='users'б
+                                  related_name='users',
                                   blank=True)
 
     def __str__(self):
