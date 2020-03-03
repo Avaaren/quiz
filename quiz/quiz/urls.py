@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('game.urls', namespace='game')),
     path('management/', include('management.urls', namespace='management')),
+    path('account/', include('account.urls', namespace='account')),
 ]

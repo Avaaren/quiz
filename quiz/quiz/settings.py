@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # User apps
     'game.apps.GameConfig',
     'management.apps.ManagementConfig',
+    'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [
