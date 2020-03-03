@@ -1,11 +1,11 @@
 {% extends 'game/base.html' %}
 
-{% block title %}Login form{% endblock %}
+{% block title %}Registration{% endblock %}
 
 {% block content %}
 <form action="." method="POST">
     {{ form }}
     {% csrf_token %}
-    <button type='submit'>Login</button>
+    <button type='submit'>Register</button>
 </form>
 {% endblock %}
