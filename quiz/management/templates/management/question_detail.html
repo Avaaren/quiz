@@ -1,0 +1,11 @@
+{% extends 'game/base.html' %}
+
+{% block title %}Question detail {% endblock %}
+{{ question.question_text }}
+{% block content %}
+{{ question.question_text }}
+    {% for answer in question.answers.all %}
+        <p>{{ answer.answer_text }}</p>
+    {% endfor %}
+
+{% endblock %}

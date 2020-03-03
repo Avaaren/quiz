@@ -1,0 +1,10 @@
+{% extends 'game/base.html' %}
+
+{% block title %}Question List {% endblock %}
+
+{% block content %}
+    {% for question in question_list %}
+    <a href="{{ question.get_absolute_url }}">{{ question.question_text }}</a>
+        <br>
+    {% endfor %}
+{% endblock %}

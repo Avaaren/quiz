@@ -16,20 +16,23 @@ class Quiz(models.Model):
 
 class Question(models.Model):
     quiz = models.ManyToManyField(Quiz,
-                                  related_name='question',
+                                  related_name='questions',
                                   db_index=True)
     question_text = models.TextField()
 
     def __str__(self):
         return '{}'.format(self.question_text)
 
+    def get_absolute_url(self):
+        return reverse('management:question_detail', args=[self.pk]) 
+
 
 class Answer(models.Model):
     question = models.ForeignKey(Question,
-                                 related_name='answer',
+                                 related_name='answers',
                                  on_delete=models.CASCADE)
     answer_text = models.CharField(max_length=100)
-    is_true = models.BooleanField(default=False)
+    is_correct = models.BooleanField(default=False)
 
     def __str__(self):
         return '{}'.format(self.answer_text)

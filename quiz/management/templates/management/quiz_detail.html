@@ -3,5 +3,15 @@
 {% block title %}Quiz List {% endblock %}
 
 {% block content %}
-    {{ quiz.pk }}
+    {% for question in quiz.questions.all %}
+        <p>{{ question.question_text }}</p>
+        <ul>
+        {% for answer in question.answers.all %}
+            <li>
+                {{ answer.answer_text }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+    <!-- <a href="{% url 'management:question_create' %}"><button>Add new question</button></a> -->
 {% endblock %}
