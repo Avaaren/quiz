@@ -128,3 +128,5 @@ STATIC_URL = '/static/'
 LOGIN_URL = 'account:login'
 LOGIN_REDIRECT_URL = 'game:main_page'
 LOGOUT_REDIRECT_URL = 'game:main_page'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
