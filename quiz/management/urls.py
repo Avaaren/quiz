@@ -4,8 +4,8 @@ from . import views
 app_name = 'management'
 
 urlpatterns = [
-    path('quiz/', views.QuizListView.as_view(), name='quiz_list'),
-    path('quiz/<int:pk>', views.QuizDetailView.as_view(), name='quiz_detail'),
+    path('quiz/', views.ManagementQuizListView.as_view(), name='quiz_list'),
+    path('quiz/<int:pk>', views.ManagementQuizDetailView.as_view(), name='quiz_detail'),
     # path('question/create/',
     #      views.QuestionCreateView.as_view(),
     #      name='question_create'),

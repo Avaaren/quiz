@@ -1,0 +1,9 @@
+{% extends 'game/base.html' %}
+
+{% block title %}Quiz list{% endblock %}
+
+{% block content %}
+ {% for quiz in quiz_list %}
+    <a href="{% url 'game:quiz_detail' quiz.pk %}">{{ quiz.title }}</a>
+ {% endfor %}
+{% endblock %}

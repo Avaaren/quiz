@@ -20,14 +20,14 @@ from .models import (
 from .forms import QuestionFormSet
 
 
-class QuizListView(ListView):
+class ManagementQuizListView(ListView):
     model = Quiz
     ordering = ['-created']
     template_name = 'management/quiz_list.html'
     context_object_name = 'quiz_list'
 
 
-class QuizDetailView(DetailView):
+class ManagementQuizDetailView(DetailView):
     model = Quiz
     context_object_name = 'quiz'
     template_name = 'management/quiz_detail.html'

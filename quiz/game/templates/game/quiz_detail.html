@@ -1,0 +1,15 @@
+{% extends 'game/base.html' %}
+
+{% block title %}{{ quiz.title }}{% endblock %}
+
+{% block content %}
+ <h1>{{ quiz.title }}</h1>
+ {% for question in quiz.questions.all %}
+ <h3>{{ question.question_text }}</h3>
+    <ul>
+    {% for answer in question.answers.all %}
+        <li>{{ answer.answer_text }}</li>
+    {% endfor %}
+    </ul>
+{% endfor %}
+{% endblock %}
