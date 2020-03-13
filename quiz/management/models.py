@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Quiz(models.Model):
@@ -14,6 +15,16 @@ class Quiz(models.Model):
         return reverse('management:quiz_detail', args=[self.pk])
 
 
+class CurrentQuiz(models.Model):
+    quiz = models.ForeignKey(Quiz,
+                             related_name='quizes',
+                             on_delete=models.CASCADE)
+    user = models.ForeignKey(User,
+                             related_name='started_quizes',
+                             on_delete=models.CASCADE)
+    is_finished = models.BooleanField(default=False)
+
+
 class Question(models.Model):
     quiz = models.ManyToManyField(Quiz,
                                   related_name='questions',
@@ -24,7 +35,7 @@ class Question(models.Model):
         return '{}'.format(self.question_text)
 
     def get_absolute_url(self):
-        return reverse('management:question_detail', args=[self.pk]) 
+        return reverse('management:question_detail', args=[self.pk])
 
 
 class Answer(models.Model):
