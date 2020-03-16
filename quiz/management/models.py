@@ -23,6 +23,8 @@ class CurrentQuiz(models.Model):
                              related_name='started_quizes',
                              on_delete=models.CASCADE)
     is_finished = models.BooleanField(default=False)
+    questions_passed = models.IntegerField(default=0)
+    total_score = models.IntegerField(default=0)
 
 
 class Question(models.Model):
