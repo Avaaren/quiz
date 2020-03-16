@@ -1,27 +1,74 @@
 {% extends 'game/base.html' %}
+{% load static %}
 
-{% block title %}{{ quiz.title }}{% endblock %}
+{% block title %}{{ current_quiz_object.quiz.title }}{% endblock %}
 
 {% block content %}
- <h1>{{ quiz.title }}</h1>
- <h2> Question {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</h2>
- {% for question in object_list %}
-    {{ question.question_text }}
-    <ul>
-        {% for answer in question.answers.all %}
-            <li>
-                {{ answer.answer_text }}
-            </li>
-        {% endfor %}
-    </ul>
- {% endfor %}
+<style>
+  .question {
+    display: none;
+  }
+</style>
 
- <div class="pagination">
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Go next</a>
-        {% else %}
-            <p>The end.</p>
-        {% endif %}
-        
+<h1>{{ current_quiz_object.quiz.title }}</h1>
+<div class="question-block">
+  {% for question in question_queryset %}
+  <div class="question" id='q{{ question.pk }}'>
+    {{ question.pk }}
+
+    <form action="" method="post" class="post-form">
+      {% for answer in question.answers.all %}
+      <input type="radio" id="{{ answer.pk }}" name="answer" value="{{ answer.answer_text }}">
+      <label for="{{ answer.pk }}">{{ answer.answer_text }}</label><br>
+      {% endfor %}
+      <button type="submit" class='button'>Next question</button>
+      {% csrf_token %}
+    </form>
+  </div>
+  {% endfor %}
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script src="{% static 'game/js.js' %}"></script>
+<script>
+  var token = jQuery("[name=csrfmiddlewaretoken]").val();
+
+  $('#q1').show();
+  $(document).on('submit', '.post-form', function (e) {
+    let id = $('input[type=radio][name=answer]:checked').attr('id');
+    $('input[type=radio][name=answer]:checked').prop('checked', false);
+    let url = "{% url 'game:quiz_detail' current_quiz_object.quiz.pk %}"
+    // alert(url);
+    console.log();
+    //   Тут мы делаем +1 к куррент квещну и показываем его
+    alert(id);
+    $.ajax({
+      url: url, // the endpoint
+      type: "POST", // http method
+      data: {
+        chosen_answer_id: id,
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        action: 'post'
+      },
+      dataType: 'json',
+      success: function (data) {
+        console.log(data)
+        if (data.is_correct) {
+          $('#q' + (data.current_question_id - 1)).hide();
+          $('#q' + data.current_question_id).show();
+          // $('#'+ data.current_question).toggle();
+        }
+        else {
+          $('#q' + (data.current_question_id - 1)).hide();
+          $('#q' + data.current_question_id).show();
+        }
+      }
+
+    });
+
+    return false;
+  });
+</script>
 {% endblock %}
