@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import (
+    CurrentQuiz,
     Quiz,
     Question,
     Answer
@@ -20,3 +21,8 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ['question', 'answer_text']
+
+@admin.register(CurrentQuiz)
+class QuizAdmin(admin.ModelAdmin):
+    list_display = ['quiz', 'user', 'is_finished']
+    # list_filter = ['created', 'is_active']
