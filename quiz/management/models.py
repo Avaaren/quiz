@@ -13,6 +13,9 @@ class Quiz(models.Model):
 
     def get_absolute_url(self):
         return reverse('management:quiz_detail', args=[self.pk])
+    
+    def get_absolute_result_url(self):
+        return reverse('game:quiz_result', args=[self.pk])
 
 
 class CurrentQuiz(models.Model):
