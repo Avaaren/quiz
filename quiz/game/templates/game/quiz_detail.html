@@ -11,6 +11,13 @@
 </style>
 
 <h1>{{ current_quiz_object.quiz.title }}</h1>
+
+{% if current_question_id %}
+<form action="" method="post" class="post-form">
+  <button type="submit" class='button'>Continue</button>
+  {% csrf_token %}
+</form>
+{% endif %}
 <div class="question-block">
   {% for question in question_queryset %}
   <div class="question" id='q{{ question.pk }}'>
@@ -54,7 +61,7 @@
       },
       dataType: 'json',
       success: function (data) {
-        console.log(data)
+        console.log(data);
         if (data.is_correct) {
           $('#q' + (data.current_question_id - 1)).hide();
           $('#q' + data.current_question_id).show();
@@ -64,11 +71,14 @@
           $('#q' + (data.current_question_id - 1)).hide();
           $('#q' + data.current_question_id).show();
         }
-      }
+        if (data.current_question_id > '{{ current_quiz_object.quiz.questions.count }}'){
+      window.location.href = "{{ current_quiz_object.quiz.get_absolute_result_url }}"
+    }
+  }
 
     });
 
-    return false;
+  return false;
   });
 </script>
 {% endblock %}
