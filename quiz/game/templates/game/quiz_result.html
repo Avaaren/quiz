@@ -1,0 +1,14 @@
+{% extends 'game/base.html' %}
+
+{% block title %}Quiz result{% endblock %}
+
+{% block content %}
+    <h1>{{ quiz_result.quiz.title }}</h1>
+    <h2>Your results:</h2>
+    <ul>
+        <li>Name: {{ quiz_result.user }}</li>
+        <li>Correct Answer: {{ quiz_result.total_score }} // {{ quiz_result.quiz.questions.count }}</li>
+        <li>Time : </li>
+        <li>Total score :</li>
+    </ul>
+{% endblock %}
